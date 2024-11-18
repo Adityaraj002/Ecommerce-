@@ -1,6 +1,7 @@
 import { ProductBanner } from "../components/ProductBanner";
 import { CategoryMenu } from "../components/CategoryMenu";
 import { ProductCard } from "../components/ProductCard";
+import { Arivals } from "@/components/Arivals";
 
 
 
@@ -55,6 +56,10 @@ const Home = () => {
            <ProductCard  />
          </div>
          
+         {/* New Arivals  */}
+         <div className="New-Arivals">
+         <Arivals />
+         </div>
        </div>
      </>
    );
