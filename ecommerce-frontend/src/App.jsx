@@ -14,6 +14,7 @@ import { PrivacyPolicy } from "./Pages/Privacy";
 import store from "./redux/store/store";
 import { Wishlist } from "./components/Wishlist";
 import { Cart } from "./Pages/Cart";
+import { Checkout } from "./Pages/Checkout";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./Pages/Home"));
@@ -60,6 +61,8 @@ const App = () => {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+
         </Routes>
 
         <Footer />

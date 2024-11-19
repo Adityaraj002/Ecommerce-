@@ -229,9 +229,9 @@ export const Cart = () => {
               <hr />
             </div>
             <div className="m-4 flex items-center justify-center">
-              <button className="rounded-lg border-none bg-green-500 px-4 py-2 text-white hover:bg-blue-600">
+              <Link to='/checkout' className="rounded-lg border-none bg-green-500 px-4 py-2 text-white hover:bg-blue-600">
                 Process to checkout
-              </button>
+              </Link>
             </div>
           </div>
         </section>
