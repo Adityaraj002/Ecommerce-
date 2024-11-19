@@ -1,6 +1,6 @@
 import { MdDelete } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   add,
@@ -22,6 +22,9 @@ export const Cart = () => {
 
   const totalAmount = useSelector(selectTotalAmount);
   const [sortOption, setsortoption] = useState("");
+
+  
+  const navigate = useNavigate();
 
   const handleWishListToCart = () => {
     if (WishListProduct && WishListProduct.length > 0) {
@@ -49,6 +52,17 @@ export const Cart = () => {
     dispatch(clearAll(cartProduct));
   };
 
+  // handling to process to conform user details 
+  const handleSubmit = () => {
+    console.log("data");
+    if (cartProduct && cartProduct.length > 0) {
+      navigate('/checkout')
+    } else {
+      alert("Your cart is empty. Please add items to proceed.");
+    }
+  }
+  
+  
   const sortedProducts = [...cartProduct].sort((a, b) => {
     if (sortOption == "price") {
       return a.price - b.price; // Ascending order by price
@@ -229,9 +243,9 @@ export const Cart = () => {
               <hr />
             </div>
             <div className="m-4 flex items-center justify-center">
-              <Link to='/checkout' className="rounded-lg border-none bg-green-500 px-4 py-2 text-white hover:bg-blue-600">
+              <button onClick={handleSubmit} className="rounded-lg border-none bg-green-500 px-4 py-2 text-white hover:bg-blue-600">
                 Process to checkout
-              </Link>
+              </button>
             </div>
           </div>
         </section>

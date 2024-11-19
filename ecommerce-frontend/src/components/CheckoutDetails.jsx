@@ -4,7 +4,8 @@ import {  useSelector } from "react-redux";
 
 const CheckoutDetails = () => {
   const cartproducts = useSelector((state) => state.product.product);
-  const totalPrice = useSelector(selectTotalAmount)
+  const totalPrice = useSelector(selectTotalAmount);
+
   return (
     <section className="w-full lg:w-2/5">
       <div className="bg-gray-200 rounded-lg p-6">

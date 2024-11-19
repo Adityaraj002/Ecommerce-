@@ -3,7 +3,6 @@ import CheckoutDetails from "../components/CheckoutDetails";
 
 export const Checkout = () => {
   
-
   return (
 
     <div className="font-poppins min-h-screen bg-white w-4/5 mx-auto p-12 text-gray-700">
