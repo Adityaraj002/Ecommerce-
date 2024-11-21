@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 export const Signup = () => {
   return (
     <div className="flex items-center justify-center bg-gray-50 p-10">
-      <div className="flex max-w-3xl items-center rounded-2xl bg-gray-200 p-5 shadow-lg">
+      <div className="flex max-w-3xl items-center rounded-2xl bg-orange-300 p-5 shadow-lg">
         <div className="hidden w-1/2 rounded-2xl shadow-md shadow-slate-600 md:block">
           <img
             src="https://images.pexels.com/photos/29003596/pexels-photo-29003596/free-photo-of-close-up-of-modern-metallic-cross-pendant.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -41,7 +41,7 @@ export const Signup = () => {
               name="password"
               placeholder="password"
             />
-            <button className="rounded-xl bg-[#002D74] py-2 font-400 text-white duration-300 hover:scale-105">
+            <button className="rounded-xl  bg-[#002D74] py-2 font-400 text-white duration-300 hover:scale-105">
               Login
             </button>
           </form>
@@ -52,7 +52,7 @@ export const Signup = () => {
             <hr className="border-gray-500" />
           </div>
 
-          <button className="mt-4 flex w-full items-center justify-center rounded-xl bg-white py-2 text-sm font-400 duration-300 hover:scale-105">
+          <button className="mt-4 flex w-full items-center justify-center rounded-xl bg-white py-2 text-sm text-[#002D74] font-500 duration-300 hover:scale-105">
             <svg
               className="mr-3"
               xmlns="http://www.w3.org/2000/svg"
@@ -83,10 +83,10 @@ export const Signup = () => {
           </button>
 
           <div className="mt-4 items-center justify-between text-xs font-300 md:flex">
-            <p>If you already have account?</p>
+            <p className='text-[#002D74] font-400'>If you already have account?</p>
             <Link
               to="/login"
-              className="mt-2 w-full rounded-xl bg-white px-5 py-2 duration-300 hover:scale-105 md:mt-0 md:w-1/2"
+              className="mt-2 w-full rounded-xl text-[#002D74] font-500 bg-white px-5 py-2 duration-300 hover:scale-105 md:mt-0 md:w-1/2"
             >
               Login
             </Link>

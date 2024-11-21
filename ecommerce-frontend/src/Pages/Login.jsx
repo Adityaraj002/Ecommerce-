@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <div className="flex items-center justify-center bg-gray-50 p-10">
-      <div className="flex max-w-3xl items-center rounded-2xl bg-gray-200 p-5 shadow-lg">
+      <div className="flex max-w-3xl items-center rounded-2xl bg-orange-300 p-5 shadow-lg">
         <div className="px-8 md:w-1/2">
           <h2 className="text-3xl font-700 text-[#002D74]">Login</h2>
           <p className="mt-4 text-sm font-300 text-[#002D74]">Wecome Back</p>
@@ -31,7 +31,7 @@ const Login = () => {
             <hr className="border-gray-500" />
           </div>
 
-          <button className="mt-4 flex w-full items-center justify-center rounded-xl bg-white py-2 text-sm font-400 duration-300 hover:scale-105">
+          <button className="mt-4 flex w-full items-center justify-center rounded-xl bg-white text-[#002D74]  py-2 text-sm font-500 duration-300 hover:scale-105">
             <svg
               className="mr-3"
               xmlns="http://www.w3.org/2000/svg"
@@ -61,15 +61,15 @@ const Login = () => {
             Google
           </button>
 
-          <p className="mt-4 border-b py-2 text-xs font-300">
+          <p className="mt-4 text-[#002D74] py-2 text-xs font-400">
             Forgot your password?
           </p>
 
-          <div className="mt-3 items-center justify-between text-xs font-300 md:flex">
-            <p>If you don&apos;t have account?</p>
+          <div className="mt-3 text-[#002D74] items-center justify-between text-xs font-400 md:flex">
+            <p >If you don&apos;t have account?</p>
             <Link
               to="/signup"
-              className="mt-2 w-full rounded-xl bg-white px-5 py-2 duration-300 hover:scale-105 md:mt-0 md:w-1/2"
+              className="mt-2 w-full rounded-xl bg-white px-5 py-2 duration-300 hover:scale-105 md:mt-0 md:w-1/2 text-[#002D74] font-500"
             >
               Signup
             </Link>
