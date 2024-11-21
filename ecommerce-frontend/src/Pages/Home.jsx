@@ -2,6 +2,7 @@ import { ProductBanner } from "../components/ProductBanner";
 import { CategoryMenu } from "../components/CategoryMenu";
 import { ProductCard } from "../components/ProductCard";
 import { Arivals } from "@/components/Arivals";
+import { Services } from "@/components/services";
 
 
 
@@ -40,9 +41,9 @@ const Home = () => {
   
    return (
      <>
-       <div className="home-container">
+       <div className="home-container bg-white">
          {/* Category Menu */}
-         <div className="category-section">
+         <div className="category-section ">
            <CategoryMenu />
          </div>
 
@@ -59,6 +60,11 @@ const Home = () => {
          {/* New Arivals  */}
          <div className="New-Arivals">
          <Arivals />
+         </div>
+
+         {/* Services  */}
+         <div className="bg-orange-300 rounded-md m-10 p-2">
+           <Services />
          </div>
        </div>
      </>

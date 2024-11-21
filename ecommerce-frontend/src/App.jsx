@@ -16,6 +16,7 @@ import { Wishlist } from "./components/Wishlist";
 import { Cart } from "./Pages/Cart";
 import { Checkout } from "./Pages/Checkout";
 import { NotFoundPage } from "./Pages/NotPageFound";
+import ProductDetail from "./components/ProductDetail";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./Pages/Home"));
@@ -34,6 +35,7 @@ const App = () => {
         {/* Route Configuration */}
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/productdetail" element={<ProductDetail />} />
           <Route
             path="/"
             element={
