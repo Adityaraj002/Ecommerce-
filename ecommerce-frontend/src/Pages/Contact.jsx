@@ -2,6 +2,7 @@ import { IoCallOutline } from "react-icons/io5";
 import { IoMdMail } from "react-icons/io";
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
+import { useParams } from "react-router-dom";
 
 const Contact = () => {
   const {
@@ -10,9 +11,14 @@ const Contact = () => {
     formState: { errors },
   } = useForm();
 
+  const parame = useParams();
+  
+ 
+  
+
   // Form Submission Handler
   const onSubmit = (data) => {
-    console.log('Contact Form Data:', data);
+    // console.log('Contact Form Data:', data);
 
     // Success Toast
     toast.success('Thank you for contacting us! We will get back to you shortly.', {

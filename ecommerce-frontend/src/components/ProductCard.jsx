@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { useNavigate } from "react-router-dom";
 
 export const ProductCard = () => {
   const [products, setProduct] = useState([]);
@@ -29,6 +30,12 @@ export const ProductCard = () => {
     };
     fetchdata();
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleViewProduct = (id) => {
+    navigate(`/product/${id}`);
+  };
 
   const handleadd = (product) => {
     dispatch(add(product));
@@ -137,9 +144,12 @@ export const ProductCard = () => {
                   <h2 className="min-h-12 text-wrap font-400">
                     {titlesort(product.title, 30)}
                   </h2>
+                  <div className="flex justify-between items-center">
                   <p className="price text-[14px] font-600 text-red-400">
                     ${product.price}
                   </p>
+                    <button onClick={() => handleViewProduct(product.id)} className=" p-2 mb-2 rounded-lg text-white bg-[#002D74] hover:scale-105">view</button>
+                  </div>
                 </div>
               </div>
             </div>

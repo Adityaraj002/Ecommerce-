@@ -1,17 +1,11 @@
 import {  useNavigate } from "react-router-dom"
-import { LiaShippingFastSolid } from "react-icons/lia";
-import { RiCustomerService2Fill } from "react-icons/ri";
-import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import Wall from "@/components/Wall";
-import { Services } from "@/components/services";
+import { Services } from "@/components/Services";
 
 
-// <AiFillInstagram />
-// <FaLinkedin />
-// <FaTwitter />
 const About = () => {
   const text = "Our Story"
   const navigate = useNavigate()

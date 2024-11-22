@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa6";
@@ -18,8 +18,8 @@ import { useSelector } from "react-redux";
 
     const items = useSelector((state) => state.product.product);
     const likedItem = useSelector((state) => state.ProductWishlist.like);
-    // console.log("product length ",items.length)
-    // console.log("liked the item ",likedItem.length)
+   
+    const navigate = useNavigate();
   
     const handleClick = () => {
       setIsClicked((prevState)=> !prevState)
@@ -46,6 +46,10 @@ import { useSelector } from "react-redux";
     },[onClose])
   
     const location = useLocation();
+
+    const handleMyAccount = () => {
+      navigate("/")
+    }
 
     //condition to hide cart and wish list when user visite login or sign up page
     const hideCartAndWishList = location.pathname === "/signup" || location.pathname === '/login';
@@ -136,7 +140,7 @@ import { useSelector } from "react-redux";
                             to="/myaccount"
                             className="hover:scale-50 mb-2 text-gray-700 hover:text-black"
                           >
-                            <li className="flex gap-4">
+                            <li className="flex gap-4" onClick={handleMyAccount}>
                               <CiUser className="text-[20px]" />
                               <p>Manage My Account</p>
                             </li>

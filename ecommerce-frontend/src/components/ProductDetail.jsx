@@ -1,6 +1,78 @@
-import React from "react";
+import { getProduct } from "@/functions/product";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ProductCard } from "./ProductCard";
+import { Loading } from "./Loading"; // Import the Loading component
+import { useDispatch } from "react-redux";
+import { add } from "@/redux/features/ProductCartSlice";
 
 const ProductDetail = () => {
+  const { id } = useParams();
+
+  const [products, setProducts] = useState({});
+  const [selectedImage, setSelectedImage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [newComment, setNewComment] = useState("");
+  const [newRating, setNewRating] = useState(5);
+
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
+  const handleCheckout = () => {
+    navigation("/cart");
+    dispatch(add(products));
+  };
+
+  const handleProductCart = () => {
+    dispatch(add(products));
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    if (newComment.trim()) {
+      const newReview = {
+        username: "Anonymous User", // Replace with actual username if available
+        avatar: "https://via.placeholder.com/40", // Placeholder avatar URL
+        comment: newComment,
+        rating: newRating,
+      };
+      setProducts((prev) => ({
+        ...prev,
+        reviews: [...(prev.reviews || []), newReview],
+      }));
+      setNewComment("");
+      setNewRating(5);
+    }
+  };
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      setIsLoading(true);
+      try {
+        const allproductdata = await getProduct();
+        const product = allproductdata.find((item) => item.id === parseInt(id));
+        setProducts(product);
+        setSelectedImage(product?.images?.[0] || "");
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchdata();
+  }, [id]);
+
+  const images =
+    products.images && Array.isArray(products.images) && products.images.length > 0
+      ? products.images
+      : [];
+
+  const reviews = products.reviews || []; // Fallback to an empty array if no reviews
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="p-4 md:p-8 lg:p-16 bg-gray-100">
       {/* Product Section */}
@@ -9,63 +81,52 @@ const ProductDetail = () => {
         <div>
           <div className="bg-white p-4 rounded shadow">
             <img
-              src="/path-to-main-image.jpg"
-              alt="Boa Fleece Jacket"
-              className="w-full h-auto"
+              src={selectedImage}
+              alt={products.title || "Product Image"}
+              className="w-full max-h-[500px]"
             />
           </div>
           <div className="flex space-x-2 mt-4">
-            <img
-              src="/path-to-image1.jpg"
-              alt="Side View 1"
-              className="w-20 h-20 rounded shadow"
-            />
-            <img
-              src="/path-to-image2.jpg"
-              alt="Side View 2"
-              className="w-20 h-20 rounded shadow"
-            />
-            <img
-              src="/path-to-image3.jpg"
-              alt="Side View 3"
-              className="w-20 h-20 rounded shadow"
-            />
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Side View ${index + 1}`}
+                className={`w-20 h-20 rounded shadow cursor-pointer ${selectedImage === image ? "ring-2 ring-black" : ""
+                  }`}
+                onClick={() => setSelectedImage(image)}
+              />
+            ))}
           </div>
         </div>
 
         {/* Product Details */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-bold">Boa Fleece Jacket</h2>
-          <p className="text-gray-500 text-sm">Jolt/Jackets</p>
+        <div className="space-y-6 text-[#002D74]">
+          <h2 className="text-2xl font-bold">{products.title}</h2>
+          <p className="text-[#002D74] text-sm">{products.brand}</p>
 
           {/* Pricing */}
           <div className="flex items-center space-x-4">
-            <span className="text-2xl font-bold text-black">$122.00</span>
-            <span className="line-through text-gray-500">$129.00</span>
+            <span className="text-2xl font-bold text-[#002D74]">${products.price}</span>
+            <span className="line-through text-[#002D74]">$129.00</span>
             <span className="text-green-600 text-sm">5% Disc</span>
           </div>
 
           {/* Reviews */}
           <div className="flex items-center space-x-2">
-            <div className="flex space-x-1 text-yellow-500">
-              ★★★★☆
-            </div>
-            <span className="text-sm text-gray-500">(4.9, 1.2K Reviews)</span>
+            <div className="flex space-x-1 text-yellow-500">★★★★☆</div>
+            <span className="text-sm text-[#002D74]">(4.9, 1.2K Reviews)</span>
           </div>
 
-          {/* Colors */}
+          {/* Description */}
           <div>
-            <h3 className="text-sm font-bold text-gray-700">Available Colors</h3>
-            <div className="flex space-x-2 mt-2">
-              <div className="w-6 h-6 rounded-full bg-black"></div>
-              <div className="w-6 h-6 rounded-full bg-blue-700"></div>
-              <div className="w-6 h-6 rounded-full bg-green-700"></div>
-            </div>
+            <h3 className="text-sm font-bold text-[#002D74]">Description</h3>
+            <p className="mt-2">{products.description}</p>
           </div>
 
           {/* Sizes */}
           <div>
-            <h3 className="text-sm font-bold text-gray-700">Size</h3>
+            <h3 className="text-sm font-bold text-[#002D74]">Size</h3>
             <div className="flex space-x-4 mt-2">
               {["S", "M", "L", "XL"].map((size) => (
                 <button
@@ -80,39 +141,85 @@ const ProductDetail = () => {
 
           {/* Buttons */}
           <div className="flex space-x-4">
-            <button className="px-6 py-3 bg-black text-white rounded hover:bg-gray-800">
+            <button
+              onClick={handleProductCart}
+              className="px-6 py-3 bg-[#002D74] text-white rounded hover:bg-[#002D74]/90"
+            >
               Add to Cart
             </button>
-            <button className="px-6 py-3 bg-gray-300 text-black rounded hover:bg-gray-400">
+            <button
+              onClick={handleCheckout}
+              className="px-6 py-3 bg-gray-300 text-[#002D74] rounded hover:bg-gray-400"
+            >
               Checkout Now
             </button>
           </div>
         </div>
       </div>
 
-      {/* Related Products */}
-      <div className="mt-16">
-        <h3 className="text-xl font-bold">This item can be cool with this</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-          {[
-            { name: "Adidas x Jolt", price: "$349.00" },
-            { name: "P.S Cap", price: "$49.00" },
-            { name: "OS Beanie", price: "$20.00" },
-            { name: "NH X HexKnox Tote", price: "$39.90" },
-          ].map((item) => (
-            <div
-              key={item.name}
-              className="p-4 bg-white rounded shadow text-center"
-            >
+      {/* Reviews and Comments Section */}
+      <div className="mt-16 bg-white p-6 rounded shadow">
+        <h3 className="text-xl font-bold mb-4 text-[#002D74]">Customer Reviews</h3>
+
+        {/* Existing Reviews */}
+        <div className="space-y-4 text-[#002D74]">
+          {reviews.map((review, index) => (
+            <div key={index} className="flex items-start space-x-4 border-b pb-4">
               <img
-                src="/path-to-related-product.jpg"
-                alt={item.name}
-                className="w-full h-auto rounded"
+                src={review.avatar || "https://via.placeholder.com/40"}
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full"
               />
-              <h4 className="mt-2 text-sm font-semibold">{item.name}</h4>
-              <p className="text-sm text-gray-500">{item.price}</p>
+              <div>
+                <p className="text-sm font-bold">{review.username}</p>
+                <div className="flex items-center space-x-1 text-yellow-500">
+                  {"★".repeat(review.rating)}
+                  {"☆".repeat(5 - review.rating)}
+                </div>
+                <p className="text-sm mt-2">{review.comment}</p>
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Add a Comment */}
+        <form onSubmit={handleCommentSubmit} className="mt-6 text-[#002D74]">
+          <h4 className="text-lg font-bold mb-2">Leave a Comment</h4>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Write your comment here..."
+            className="w-full p-2 border rounded mb-4"
+            rows="4"
+          ></textarea>
+          <div className="flex items-center space-x-4">
+            <label className="text-sm font-bold">Rating:</label>
+            <select
+              value={newRating}
+              onChange={(e) => setNewRating(Number(e.target.value))}
+              className="p-2 border rounded"
+            >
+              {[1, 2, 3, 4, 5].map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="mt-4 px-4 py-2 bg-[#002D74] text-white rounded hover:bg-[#002D74]/90"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+
+      {/* Related Products */}
+      <div className="mt-16 text-[#002D74]">
+        <h3 className="text-xl font-bold">This item can be cool with this</h3>
+        <div className="gap-4 mt-4">
+          <ProductCard />
         </div>
       </div>
     </div>

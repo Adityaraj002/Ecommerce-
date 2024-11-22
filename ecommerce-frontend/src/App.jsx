@@ -17,6 +17,7 @@ import { Cart } from "./Pages/Cart";
 import { Checkout } from "./Pages/Checkout";
 import { NotFoundPage } from "./Pages/NotPageFound";
 import ProductDetail from "./components/ProductDetail";
+import { UserProfile } from "./components/User/UserProfile";
 
 // Lazy-loaded components
 const Home = lazy(() => import("./Pages/Home"));
@@ -35,7 +36,7 @@ const App = () => {
         {/* Route Configuration */}
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/productdetail" element={<ProductDetail />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route
             path="/"
             element={
@@ -66,6 +67,7 @@ const App = () => {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/myaccount" element={<UserProfile />} />
 
         </Routes>
 

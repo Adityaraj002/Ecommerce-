@@ -2,7 +2,8 @@ import { ProductBanner } from "../components/ProductBanner";
 import { CategoryMenu } from "../components/CategoryMenu";
 import { ProductCard } from "../components/ProductCard";
 import { Arivals } from "@/components/Arivals";
-import { Services } from "@/components/services";
+import { Services } from "@/components/Services";
+import { useParams } from "react-router-dom";
 
 
 
@@ -36,7 +37,9 @@ const products = [
 ];
 
 const Home = () => {
-
+  const parame = useParams()
+  console.log("here is params at home ",parame);
+  
   
   
    return (
