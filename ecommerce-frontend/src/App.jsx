@@ -68,7 +68,6 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/myaccount" element={<UserProfile />} />
-
         </Routes>
 
         <Footer />
