@@ -1,1 +1,1 @@
-export const DB_NAME = "Exclusive DATA Base"
+export const DB_NAME = "ExclusiveDATABase"

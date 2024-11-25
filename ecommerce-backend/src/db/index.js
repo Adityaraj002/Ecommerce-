@@ -5,7 +5,10 @@ import { DB_NAME } from '../constent.js'
 // connected to Mongo Db data base 
 const ConnectDb = async () => {
   try {
-    const connectInstance = await mongoose.connect(`${process.env.MONGODB_URL}/${DB_NAME}`)
+    const connectInstance = await mongoose.connect(
+      `${process.env.MONGODB_URL}/${DB_NAME}`,
+      { useNewUrlParser: true, useUnifiedTopology: true }
+    );
 
     console.log(`\n MONGODB connected !! DB HOST : ${connectInstance.connection.host}`);
   } catch (error) {

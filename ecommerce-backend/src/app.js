@@ -17,6 +17,14 @@ app.use(express.urlencoded({
 }));
 
 app.use(express.static("public"));
-app.use(cookiesParese())
+app.use(cookiesParese());
 
-export {app}
+//import userRole 
+import userRouter from './routers/userRole.routes.js'
+
+//router declaration
+app.use('/api/v1', userRouter);
+
+export { app }
+
+// EpxEaVpzplkKztH7
