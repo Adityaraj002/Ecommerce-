@@ -6,7 +6,7 @@ const UserSchema = new Schema(
   {
     role_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "UserRole",
+      ref: "Userrole",
       required: true,
     },
     fullName: {
@@ -28,6 +28,11 @@ const UserSchema = new Schema(
         message: "Invalid email format",
       },
     },
+    password: {
+      type: String,
+      required: true,
+      min: 3,
+    },
     phone_number: {
       type: String,
       trim: true,
@@ -44,7 +49,7 @@ const UserSchema = new Schema(
       },
     },
     refreshToken: {
-      type:String
+      type: String,
     },
     status: {
       type: String,
@@ -55,7 +60,7 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-
+// Pre-save hook for password hashing
 UserSchema.pre('save',async function (next) {
   if (!this.isModified('password')) return next();
 
@@ -64,33 +69,41 @@ UserSchema.pre('save',async function (next) {
 })
 
 
-UserSchema.method.generateAccessToken = function () {
-  return jwt.sign({
-    _id: this._id,
-    email: this.email,
-    phone_number: this.phone_number,
-    fullName:this.fullName
-  },
-  process.env.ACCESS_TOKEN_SECRET,
-  {
-    expiredIn:process.env.ACCESS_TOKEN_EXPIRED
-  }
-  )
+// Instance method to validate passwords
+UserSchema.method.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password,this.password)
 }
 
+
+// Instance method to generate access token
+UserSchema.method.generateAccessToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+      phone_number: this.phone_number,
+      fullName: this.fullName,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRED,
+    }
+  );
+}
+// Instance method to generate refresh token
 UserSchema.method.generateRefreshToken = function () {
   return jwt.sign(
     {
       _id: this._id,
       fullName: this.fullName,
       phone_number: this.phone_number,
-      email:this.email
+      email: this.email,
     },
     process.env.REFRESH_TOKEN_SECRET,
     {
-      expiredIn:process.env.REFRESH_TOKEN_EXPIRED
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRED,
     }
-  )
+  );
 }
 
 export const User = mongoose.model("User", UserSchema);

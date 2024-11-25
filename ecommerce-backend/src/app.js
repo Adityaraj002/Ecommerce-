@@ -19,12 +19,14 @@ app.use(express.urlencoded({
 app.use(express.static("public"));
 app.use(cookiesParese());
 
-//import userRole 
-import userRouter from './routers/userRole.routes.js'
+//import 
+import userRoleRouter from './routers/userRole.routes.js'
+import userrouter from "./routers/user.routes.js";
 
 //router declaration
-app.use('/api/v1', userRouter);
+app.use('/api/v1/userRole', userRoleRouter);
+app.use('/api/v1/user',userrouter)
+
 
 export { app }
 
-// EpxEaVpzplkKztH7
