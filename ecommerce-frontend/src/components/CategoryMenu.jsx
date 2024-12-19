@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const CategoryMenu = () => {
   return (
     <>
-      <div className="xcategoryWarpped mt-[1rem] bg-[#fff] py-1">
+      <div className="xcategoryWarpped  bg-[#fff] py-1">
         <div className="individualCategory relative flex w-[100%] items-center justify-center gap-4 font-Poppins text-[0.9rem] font-400">
           {/* this code in index.css */}
           <div className="MensFashion Fashion categoryPopup group relative">

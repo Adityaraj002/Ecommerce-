@@ -47,7 +47,7 @@ const Home = () => {
        <div className="home-container bg-white">
          {/* Category Menu */}
          <div className="category-section ">
-           <CategoryMenu />
+           {/* <CategoryMenu /> */}
          </div>
 
          {/* Product Banner */}
