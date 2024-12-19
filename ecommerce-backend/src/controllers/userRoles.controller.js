@@ -16,9 +16,10 @@ const createUserRole = asyncHandler(async (req, res) => {
   if (existRole) {
     throw new ApiError(409, "This Role is already exist");
   }
-
+  // console.log("Role", existRole);
+  
   const newRole = await Userrole.create({ roleName: role });
-
+  // console.log("Role", newRole);
   return res
     .status(201)
     .json(

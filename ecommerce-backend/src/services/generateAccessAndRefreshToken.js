@@ -3,9 +3,13 @@ import { ApiError } from "../utils/ApiError.js";
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
-    const user = User.findById(userId);
+    const user = await User.findById(userId);
+    // console.log("User in gar : ",user);
+    
     const accessToken = user.generateAccessToken();
-    const refreshToken = user.genrateRefreshToken();
+    // console.log("accessToken : ", accessToken);
+    const refreshToken = user.generateRefreshToken();
+    // console.log("refreshToken: ", refreshToken);
 
     user.refreshToken = refreshToken
     await user.save({ validateBeforeSave: false })

@@ -60,23 +60,28 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-// Pre-save hook for password hashing
-UserSchema.pre('save',async function (next) {
-  if (!this.isModified('password')) return next();
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
+  // Hash the password before saving
   this.password = await bcrypt.hash(this.password, 10);
   next();
-})
+});
+
 
 
 // Instance method to validate passwords
-UserSchema.method.isPasswordCorrect = async function (password) {
-  return await bcrypt.compare(password,this.password)
+UserSchema.methods.isPasswordCorrect = async function (password) {
+  // console.log("this password : ",this.password)
+  // console.log("Input password : ", password)
+  const ismatched = await bcrypt.compare(password.trim(), this.password);
+  // console.log("ismatched : ",ismatched)
+  return ismatched
 }
 
 
 // Instance method to generate access token
-UserSchema.method.generateAccessToken = function () {
+UserSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
       _id: this._id,
@@ -91,13 +96,10 @@ UserSchema.method.generateAccessToken = function () {
   );
 }
 // Instance method to generate refresh token
-UserSchema.method.generateRefreshToken = function () {
+UserSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
       _id: this._id,
-      fullName: this.fullName,
-      phone_number: this.phone_number,
-      email: this.email,
     },
     process.env.REFRESH_TOKEN_SECRET,
     {
