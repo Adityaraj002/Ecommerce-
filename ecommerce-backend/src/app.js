@@ -1,6 +1,6 @@
 import express from "express"
 import cors from 'cors'
-import cookiesParese from 'cookie-parser'
+import cookieParese from 'cookie-parser'
 
 const app = express();
 
@@ -17,15 +17,17 @@ app.use(express.urlencoded({
 }));
 
 app.use(express.static("public"));
-app.use(cookiesParese());
+app.use(cookieParese());
 
 //import 
-import userRoleRouter from './routers/userRole.routes.js'
-import userrouter from "./routers/user.routes.js";
+import userRoleRouter from './routers/userRole.routes.js' //importing the router
+import userrouter from "./routers/user.routes.js";  //importing the router
+import ShoppingAddressRouter from "./routers/shoppingAddress.routes.js";  //importing the router
 
 //router declaration
-app.use('/api/v1/userRole', userRoleRouter);
-app.use('/api/v1/user',userrouter)
+app.use('/api/v1/userRole', userRoleRouter);  //using the router
+app.use('/api/v1/user', userrouter)   //using the router
+app.use("/api/v1/shoppingAddress", ShoppingAddressRouter);    //using the router
 
 
 export { app }

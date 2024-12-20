@@ -1,4 +1,3 @@
-// import bcrypt from "bcrypt";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -158,4 +157,18 @@ const updatePassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "Password Update SuccessFully"));
 });
 
-export { register, login, logout, updateProfile, updatePassword };
+const getUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).select("-password");
+
+  return res.status(200).json(new ApiResponse(200, "User Profile", { user }));
+});
+
+
+export {
+  register,
+  login,
+  logout,
+  updateProfile,
+  updatePassword,
+  getUserProfile,
+};
