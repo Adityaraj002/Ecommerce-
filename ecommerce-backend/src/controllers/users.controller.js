@@ -113,18 +113,17 @@ const updateProfile = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fielda are required");
   }
 
+  // Build the update object dynamically
+  const updateFields = {};
+  if (fullName?.trim()) updateFields.fullName = fullName;
+  if (email?.trim()) updateFields.email = email;
+  if (phoneNo?.trim()) updateFields.phoneNo = phoneNo;
+
+  // Update the user details
   const user = await User.findByIdAndUpdate(
     req.user._id,
-    {
-      $set: {
-        fullName,
-        email,
-        phoneNo,
-      },
-    },
-    {
-      new: true,
-    }
+    { $set: updateFields },
+    { new: true } // Return the updated document
   ).select("-password");
 
   return res
