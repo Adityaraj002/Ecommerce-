@@ -62,7 +62,6 @@ const UserSchema = new Schema(
 
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-
   // Hash the password before saving
   this.password = await bcrypt.hash(this.password, 10);
   next();
@@ -72,10 +71,7 @@ UserSchema.pre("save", async function (next) {
 
 // Instance method to validate passwords
 UserSchema.methods.isPasswordCorrect = async function (password) {
-  // console.log("this password : ",this.password)
-  // console.log("Input password : ", password)
   const ismatched = await bcrypt.compare(password.trim(), this.password);
-  // console.log("ismatched : ",ismatched)
   return ismatched
 }
 
