@@ -4,11 +4,10 @@ import bcrypt from 'bcrypt'
 
 const UserSchema = new Schema(
   {
-    role_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Userrole",
-      required: true,
-    },
+    // role_id: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Userrole",
+    // },
     fullName: {
       type: String,
       required: true,
@@ -33,9 +32,10 @@ const UserSchema = new Schema(
       required: true,
       min: 3,
     },
-    phone_number: {
+    phoneNo: {
       type: String,
       trim: true,
+      required:true,
       unique: true,
       sparse: true, // Allows either email or phone to be present
       validate: {
@@ -74,6 +74,8 @@ UserSchema.methods.isPasswordCorrect = async function (password) {
   console.log("this password ", this.password);
   console.log("password ",password);
   const ismatched = await bcrypt.compare(password.trim(), this.password);
+  // console.log("ismatched : ",ismatched);
+  
   return ismatched
 }
 

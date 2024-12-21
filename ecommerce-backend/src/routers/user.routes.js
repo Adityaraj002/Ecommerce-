@@ -5,6 +5,7 @@ import {
   register,
   updatePassword,
   updateProfile,
+  deleteUser,
 } from "../controllers/users.controller.js";
 import { verifyJwt } from "../middlewares/auth.middleware.js";
 
@@ -15,5 +16,6 @@ userrouter.route('/login').post(login);
 userrouter.route("/logout").post(verifyJwt, logout);
 userrouter.route("/updateProfile").post(verifyJwt, updateProfile);
 userrouter.route("/updatePassword").post(verifyJwt, updatePassword);
+userrouter.route("/deleteUser").delete(verifyJwt, deleteUser);
 
 export default userrouter;

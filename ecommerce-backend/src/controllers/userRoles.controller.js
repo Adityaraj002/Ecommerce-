@@ -1,30 +1,19 @@
-import { Userrole } from "../models/userRole.model.js";
-import { asyncHandler } from '../utils/asyncHandler.js'
-import { ApiError } from '../utils/ApiError.js'
-import { ApiResponse } from '../utils/ApiResponse.js'
+// import { Userrole } from "../models/userRole.model.js";
+// import { asyncHandler } from '../utils/asyncHandler.js'
+// import { ApiError } from '../utils/ApiError.js'
+// import { ApiResponse } from '../utils/ApiResponse.js'
+// import { User } from "../models/user.model.js";
 
 
-const createUserRole = asyncHandler(async (req, res) => {
-  const { role } = req.body;
 
-  if (!role || (role !== "Admin" && role !== "customer")) {
-    throw new ApiError(400, "Please Select valid Role");
-  }
 
-  const existRole = await Userrole.findOne({ role });
-
-  if (existRole) {
-    throw new ApiError(409, "This Role is already exist");
-  }
-  // console.log("Role", existRole);
+// const defaultUserRole = asyncHandler(async (req, res) => {
+//   const defaultRole = await Userrole.create({ roleName: "customer" })
   
-  const newRole = await Userrole.create({ roleName: role });
-  // console.log("Role", newRole);
-  return res
-    .status(201)
-    .json(
-      new ApiResponse(200, "Creation of Role Success Full", { role: newRole })
-    );
-})
+//   return res
+//     .status(200)
+//     .json(new ApiResponse(200, "Default Role created", { defaultRole }));
+// })
 
-export { createUserRole };
+
+// export { defaultUserRole };
