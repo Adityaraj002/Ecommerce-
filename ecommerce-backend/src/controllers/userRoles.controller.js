@@ -9,7 +9,7 @@
 
 // const defaultUserRole = asyncHandler(async (req, res) => {
 //   const defaultRole = await Userrole.create({ roleName: "customer" })
-  
+ 
 //   return res
 //     .status(200)
 //     .json(new ApiResponse(200, "Default Role created", { defaultRole }));
