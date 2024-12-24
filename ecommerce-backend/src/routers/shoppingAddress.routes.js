@@ -11,11 +11,15 @@ import { verifyJwt } from "../middlewares/auth.middleware.js";
 
 const ShoppingAddressRouter = Router();
 
-ShoppingAddressRouter.route("/addAddress").post(verifyJwt, addAddress);
-ShoppingAddressRouter.route("/getAddress").post(verifyJwt, getAddress);
-ShoppingAddressRouter.route("/updateAddress").patch(verifyJwt, updateAddress);
-ShoppingAddressRouter.route("/deleteOneAddress").delete(verifyJwt,deleteOneAddress);
-ShoppingAddressRouter.route("/setDefaultAddress").patch(verifyJwt,setDefaultAddress);
-ShoppingAddressRouter.route("/deleteAllAddress").delete(verifyJwt, deleteAllAddress);
+ShoppingAddressRouter.use(verifyJwt);
+
+ShoppingAddressRouter.route("/addAddress").post(addAddress);
+ShoppingAddressRouter.route("/getAddress").post(getAddress);
+ShoppingAddressRouter.route("/updateAddress").patch(updateAddress);
+ShoppingAddressRouter.route("/setDefaultAddress").patch(setDefaultAddress);
+ShoppingAddressRouter.route("/deleteOneAddress/:addressId").delete(
+  deleteOneAddress
+);
+ShoppingAddressRouter.route("/deleteAllAddress").delete(deleteAllAddress);
 
 export default ShoppingAddressRouter;

@@ -164,11 +164,6 @@ const updatePassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "Password Update SuccessFully"));
 });
 
-const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id).select("-password");
-
-  return res.status(200).json(new ApiResponse(200, "User Profile", { user }));
-});
 
 const deleteUser = asyncHandler(async (req, res) => {
   const user_id = req.user._id;
@@ -176,14 +171,39 @@ const deleteUser = asyncHandler(async (req, res) => {
   if (!userTodelete) {
     throw new ApiError(404, "User Not found or unauthorized");
   }
-
+  
   //deleting user more data here
   await ShoppingAddresses.deleteMany({user_id})
-
+  
   return res
-    .status(200)
-    .json(new ApiResponse(200,"Deleting user SuccessFull"))
+  .status(200)
+  .json(new ApiResponse(200,"Deleting user SuccessFull"))
 })
+
+const getUserProfile = asyncHandler(async (req, res) => {
+  // const user_id = req.user._id; 
+  const user = await User.aggregate([
+    {
+      $match: {_id:req.user._id},
+    },
+    {
+      $lookup: {
+        from: "shoppingaddresses",
+        localField: "_id",
+        foreignField:"user_id",
+        as:"address"
+      }
+    },
+    {
+      $project: {
+        password: 0,
+        refreshToken: 0,
+      }
+    }
+  ])
+
+  return res.status(200).json(new ApiResponse(200, "User Profile", { user }));
+});
 
 export {
   register,
