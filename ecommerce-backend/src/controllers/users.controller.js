@@ -6,13 +6,11 @@ import { User } from "../models/user.model.js";
 import { generateAccessAndRefreshToken } from "../services/generateAccessAndRefreshToken.js";
 // import mongoose from "mongoose";
 import { ShoppingAddresses } from "../models/shoppingAddresses.model.js";
-
+import { UserRolesEnum } from "../constent.js";
 const register = asyncHandler(async (req, res) => {
-  const {  fullName, email, phoneNo, password } = req.body;
+  const { fullName, email, phoneNo, password,role } = req.body;
 
-  if (
-    [ fullName, email, phoneNo, password].some((field) => !field?.trim())
-  ) {
+  if ([fullName, email, phoneNo, password].some((field) => !field?.trim())) {
     throw new ApiError(400, "All fields are required.");
   }
 
@@ -36,7 +34,7 @@ const register = asyncHandler(async (req, res) => {
 
   const user = await User.create({
     fullName,
-    // role_id: roleData._id,
+    role: role || UserRolesEnum.USER,
     phoneNo,
     email,
     password,
@@ -72,7 +70,6 @@ const login = asyncHandler(async (req, res) => {
   }
   // console.log("Hashed Password:", user.password);
   // console.log("Password Match Result:", isPasswordCorrect);
-
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
     user._id
@@ -164,43 +161,42 @@ const updatePassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "Password Update SuccessFully"));
 });
 
-
 const deleteUser = asyncHandler(async (req, res) => {
   const user_id = req.user._id;
   const userTodelete = await User.findByIdAndDelete(user_id);
   if (!userTodelete) {
     throw new ApiError(404, "User Not found or unauthorized");
   }
-  
+
   //deleting user more data here
-  await ShoppingAddresses.deleteMany({user_id})
-  
+  await ShoppingAddresses.deleteMany({ user_id });
+
   return res
-  .status(200)
-  .json(new ApiResponse(200,"Deleting user SuccessFull"))
-})
+    .status(200)
+    .json(new ApiResponse(200, "Deleting user SuccessFull"));
+});
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  // const user_id = req.user._id; 
+  // const user_id = req.user._id;
   const user = await User.aggregate([
     {
-      $match: {_id:req.user._id},
+      $match: { _id: req.user._id },
     },
     {
       $lookup: {
         from: "shoppingaddresses",
         localField: "_id",
-        foreignField:"user_id",
-        as:"address"
-      }
+        foreignField: "user_id",
+        as: "address",
+      },
     },
     {
       $project: {
         password: 0,
         refreshToken: 0,
-      }
-    }
-  ])
+      },
+    },
+  ]);
 
   return res.status(200).json(new ApiResponse(200, "User Profile", { user }));
 });

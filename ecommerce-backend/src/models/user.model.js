@@ -1,13 +1,9 @@
-import mongoose, { Schema } from 'mongoose'
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
-
+import mongoose, { Schema } from "mongoose";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { UserRolesEnum } from "../constent.js";
 const UserSchema = new Schema(
   {
-    // role_id: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Userrole",
-    // },
     fullName: {
       type: String,
       required: true,
@@ -35,7 +31,7 @@ const UserSchema = new Schema(
     phoneNo: {
       type: String,
       trim: true,
-      required:true,
+      required: true,
       unique: true,
       sparse: true, // Allows either email or phone to be present
       validate: {
@@ -50,6 +46,12 @@ const UserSchema = new Schema(
     },
     refreshToken: {
       type: String,
+    },
+    role: {
+      type: String,
+      enum: UserRolesEnum,
+      default: UserRolesEnum.USER,
+      required: true,
     },
     status: {
       type: String,
@@ -67,18 +69,15 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-
-
 // Instance method to validate passwords
 UserSchema.methods.isPasswordCorrect = async function (password) {
   console.log("this password ", this.password);
-  console.log("password ",password);
+  console.log("password ", password);
   const ismatched = await bcrypt.compare(password.trim(), this.password);
   // console.log("ismatched : ",ismatched);
-  
-  return ismatched
-}
 
+  return ismatched;
+};
 
 // Instance method to generate access token
 UserSchema.methods.generateAccessToken = function () {
@@ -94,7 +93,7 @@ UserSchema.methods.generateAccessToken = function () {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRED,
     }
   );
-}
+};
 // Instance method to generate refresh token
 UserSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
@@ -106,7 +105,7 @@ UserSchema.methods.generateRefreshToken = function () {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRED,
     }
   );
-}
+};
 
 export const User = mongoose.model("User", UserSchema);
 

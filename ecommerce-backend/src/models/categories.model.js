@@ -13,15 +13,6 @@ const CategoriesSchema = new Schema(
       type: String,
       required: true,
     },
-    urlSlug: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      enum: ["active", "inactive", "default"],
-      default: "active",
-    },
   },
   { timestamps: true }
 );
