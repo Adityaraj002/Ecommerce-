@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose"
-
+import aggregatePaginate from "mongoose-aggregate-paginate-v2"
 const CategoriesSchema = new Schema(
   {
     //For nesting category like
@@ -16,5 +16,5 @@ const CategoriesSchema = new Schema(
   },
   { timestamps: true }
 );
-
+CategoriesSchema.plugin(aggregatePaginate);
 export const Category = mongoose.model("Category", CategoriesSchema);

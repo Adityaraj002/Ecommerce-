@@ -17,7 +17,7 @@ import { IoLogIn } from "react-icons/io5";
 
 export const HeaderBar = () => {
   const [isClicked, setIsClicked] = useState(false)
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogin = () => {

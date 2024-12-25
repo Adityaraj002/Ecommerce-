@@ -18,25 +18,25 @@ const createCategories = asyncHandler(async (req, res) => {
 });
 
 const updateCategroy = asyncHandler(async (req, res) => {
-  const { category_id } = res.params
-  const { name, parent_cat_id } = req.body
-  
+  const { category_id } = res.params;
+  const { name, parent_cat_id } = req.body;
+
   const categroy = await Category.findByIdAndUpdate(
     category_id,
     {
       $set: {
         name,
-        parent_cat_id
-      }
+        parent_cat_id,
+      },
     },
-    {new:true}
-  )
-})
+    { new: true }
+  );
+});
 
 const getAllCategories = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10 } = req.params;
 
-  const categoriresAggrigate = await Category.aggregate([{ $match: {} }]);
+  const categoriresAggrigate = Category.aggregate([{ $match: {} }]);
 
   const category = await Category.aggregatePaginate(
     categoriresAggrigate,
@@ -49,6 +49,8 @@ const getAllCategories = asyncHandler(async (req, res) => {
       },
     })
   );
+
+  // console.log("hello ", categoriresAggrigate);
 
   return res
     .status(200)
@@ -73,17 +75,15 @@ const deleteCategory = asyncHandler(async (req, res) => {
   const category = await Category.findByIdAndDelete(category_id);
 
   if (!category) {
-    throw new ApiError(4004,"Category not exist")
+    throw new ApiError(4004, "Category not exist");
   }
 
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, "Category deteled Successfully", {
-        deletedCategory: category,
-      })
-    );
-})
+  return res.status(200).json(
+    new ApiResponse(200, "Category deteled Successfully", {
+      deletedCategory: category,
+    })
+  );
+});
 
 export {
   createCategories,
