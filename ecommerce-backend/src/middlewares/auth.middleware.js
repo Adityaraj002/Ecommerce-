@@ -34,7 +34,7 @@ export const verifyPermission = (role = []) => asyncHandler(async (req, res, nex
     throw new ApiError(401,"UnAuthorized request ")
   }
 
-  if (!role.includes(req.user?.role)) {
+  if (role.includes(req.user?.role)) {
     next();
   } else {
     throw new ApiError(401,"You are not allowed to perform this function")

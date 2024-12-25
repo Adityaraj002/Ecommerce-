@@ -28,7 +28,7 @@ import categoriesRouter from "./routers/categories.routes.js";  //importing the 
 // app.use('/api/v1/userRole', userRoleRouter);  //using the router
 app.use('/api/v1/user', userrouter)   //using the router
 app.use("/api/v1/shoppingAddress", ShoppingAddressRouter);  //using the router
-app.use("/api/v1/categoriesRouter", categoriesRouter);  //using the router
+app.use("/api/v1/category", categoriesRouter);  //using the router
 
 
 export { app }
