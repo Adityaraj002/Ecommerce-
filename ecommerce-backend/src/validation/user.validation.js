@@ -9,14 +9,12 @@ const userRegisterValidator = () => {
       .withMessage("Email is required")
       .isEmail()
       .withMessage("Email is invalid"),
-    body("username")
+    body("fullName")
       .trim()
       .notEmpty()
-      .withMessage("Username is required")
+      .withMessage("fullName is required")
       .isLowercase()
-      .withMessage("Username must be lowercase")
-      .isLength({ min: 3 })
-      .withMessage("Username must be at lease 3 characters long"),
+      .withMessage("fullName must be lowercase"),
     body("password").trim().notEmpty().withMessage("Password is required"),
     body("role")
       .optional()

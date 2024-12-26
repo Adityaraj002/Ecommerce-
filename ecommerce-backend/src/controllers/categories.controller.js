@@ -2,6 +2,7 @@ import { Category } from "../models/categories.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { getMongoosePaginationOption } from "../utils/helpers.js";
+import { ApiError } from "../utils/ApiError.js";
 
 const createCategories = asyncHandler(async (req, res) => {
   const { parent_cat_id, categoryName } = req.body;
@@ -18,19 +19,26 @@ const createCategories = asyncHandler(async (req, res) => {
 });
 
 const updateCategroy = asyncHandler(async (req, res) => {
-  const { category_id } = res.params;
-  const { name, parent_cat_id } = req.body;
+  const { category_id } = req.params;
+  const { categoryName, parent_cat_id } = req.body;
 
   const categroy = await Category.findByIdAndUpdate(
     category_id,
     {
       $set: {
-        name,
+        categoryName,
         parent_cat_id,
       },
     },
     { new: true }
   );
+  if (!categroy) {
+    throw new ApiError(404,"category does not exist ")
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Category is Updated Successfully", categroy));
 });
 
 const getAllCategories = asyncHandler(async (req, res) => {

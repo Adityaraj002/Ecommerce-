@@ -5,22 +5,31 @@ const ProductVariantsSchema = new Schema(
     products_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Products",
-      requried:true
+      requried: true,
+    },
+    thumbnail: {
+      required: true,
+      type: {
+        url: String,
+        localPath: String,
+      },
     },
     color: {
-      type:String
+      type: String,
     },
     size: {
-      type:Number
+      type: Number,
     },
     price: {
       type: Number,
-      required : true
+      required: true,
+      default: 0,
     },
     StockQuantity: {
       type: Number,
-      required:true
-    }
+      required: true,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
