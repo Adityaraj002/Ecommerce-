@@ -4,7 +4,7 @@ import { DB_NAME } from '../constent.js'
 
 // connected to Mongo Db data base 
 const ConnectDb = async () => {
-  console.log(process.env.MONGODB_URL);
+  // console.log(process.env.MONGODB_URL);
   
   try {
     const connectInstance = await mongoose.connect(

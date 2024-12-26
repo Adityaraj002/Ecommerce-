@@ -10,6 +10,7 @@ import { verifyJwt } from "../middlewares/auth.middleware.js";
 import { verifyPermission } from "../middlewares/auth.middleware.js";
 import { UserRolesEnum } from "../constent.js";
 import { validateCategroy } from "../validation/category.validate.js";
+
 const categoriesRouter = Router();
 
 categoriesRouter
@@ -20,7 +21,7 @@ categoriesRouter
     validateCategroy(),
     createCategories
   )
-  .get(verifyJwt, verifyPermission([UserRolesEnum.ADMIN]), getAllCategories);
+  .get(getAllCategories);
   
 categoriesRouter
   .route("/:category_id")

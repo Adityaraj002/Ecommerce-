@@ -24,11 +24,13 @@ app.use(cookieParese());
 import userrouter from "./routers/user.routes.js";  //importing the router
 import ShoppingAddressRouter from "./routers/shoppingAddress.routes.js";  //importing the router
 import categoriesRouter from "./routers/categories.routes.js";  //importing the router
+import ProductRouter from "./routers/product.routes.js";
 //router declaration
 // app.use('/api/v1/userRole', userRoleRouter);  //using the router
 app.use('/api/v1/user', userrouter)   //using the router
 app.use("/api/v1/shoppingAddress", ShoppingAddressRouter);  //using the router
 app.use("/api/v1/category", categoriesRouter);  //using the router
+app.use("/api/v1/products", ProductRouter);  //using the router
 
 
 export { app }

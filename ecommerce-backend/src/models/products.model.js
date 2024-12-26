@@ -15,7 +15,7 @@ const ProductsSchema = new Schema(
     description: {
       type: String,
     },
-    thumbnail: {
+    mainImage: {
       required: true,
       type: {
         url: String,
