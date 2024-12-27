@@ -15,28 +15,6 @@ const ProductsSchema = new Schema(
     description: {
       type: String,
     },
-    mainImage: {
-      required: true,
-      type: {
-        url: String,
-        localPath: String,
-      },
-    },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    stockQuantity: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    status: {
-      type: String,
-      enum: ["active", "inactive", "default"],
-      default: "active",
-    },
   },
   { timestamps: true }
 );

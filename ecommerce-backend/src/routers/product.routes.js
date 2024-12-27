@@ -22,7 +22,6 @@ ProductRouter.route("/").get(getAllProduct)
 ProductRouter.route("/:product_id").put(
   verifyJwt,
   verifyPermission([UserRolesEnum.ADMIN]),
-  upload.fields([{ name: "mainImage", maxCount: 1 }]),
   updateProduct
 );
 ProductRouter.route("/:product_id").get(getProductById);
@@ -33,3 +32,5 @@ ProductRouter.route("/:product_id").delete(
 )
 
 export default ProductRouter
+
+// upload.fields([{ name: "mainImage", maxCount: 1 }]),

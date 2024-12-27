@@ -7,7 +7,14 @@ const ProductVariantsSchema = new Schema(
       ref: "Products",
       requried: true,
     },
-    thumbnail: {
+    mainImage: {
+      required: true,
+      type: {
+        url: String,
+        localPath: String,
+      },
+    },
+    subMainImages: {
       required: true,
       type: {
         url: String,
@@ -29,6 +36,11 @@ const ProductVariantsSchema = new Schema(
       type: Number,
       required: true,
       default: 0,
+    },
+    status: {
+      type: String,
+      enum: ["active", "inactive", "default"],
+      default: "active",
     },
   },
   { timestamps: true }

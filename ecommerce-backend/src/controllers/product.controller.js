@@ -7,7 +7,7 @@ import { Products } from "../models/products.model.js";
 
 
 const createProduct = asyncHandler(async (req, res) => {
-  const { productName, category_id, description, price, stockQuantity } =
+  const { productName, category_id, description} =
     req.body;
 
   const category = await Category.findById(category_id);
@@ -16,29 +16,12 @@ const createProduct = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Category does not exist");
   }
   
-  // console.log(req.files);
-
-  if (!req.files?.mainImage || !req.files?.mainImage.length) {
-    throw new ApiError(404, "Please provide main Images");
-  }
-  const mainImageUrl = getStaticFilePath(
-    req,
-    req.files.mainImage[0].filename
-  );
-  
-  const mainImageLocalPath = getLocalPath(req.files.mainImage[0].filename);
   const owner = req.user._id;
 
   const product = await Products.create({
     productName,
     category_id,
     description,
-    price,
-    stockQuantity,
-    mainImage: {
-      url: mainImageUrl,
-      localPath: mainImageLocalPath,
-    },
     owner,
   });
 
@@ -69,45 +52,39 @@ const getAllProduct = asyncHandler(async (req, res) => {
 })
 
 const updateProduct = asyncHandler(async (req, res) => {
-  const { product_id } = req.params
-  const { productName, description, price, stockQuantity } = req.body
-  
-  const product = await Products.findById(product_id)
+  const { product_id } = req.params;
+  const { productName, description} = req.body;
+
+  const product = await Products.findById(product_id);
 
   if (!product) {
-    throw new ApiError(404,"Product does not exist")
+    throw new ApiError(404, "Product does not exist");
   }
 
-  const mainImage = req.files?.mainImage[0]?.length
-    ? {
-      url: getStaticFilePath(req, req.files?.mainImage[0].filename),
-      localPath:getLocalPath(req.files?.mainImage[0]?.filename)
-    } : product.mainImage
-  
   const updatedProduct = await Products.findByIdAndUpdate(
     product_id,
     {
       $set: {
         productName,
-        description,
-        price,
-        stockQuantity
+        description
       },
     },
     {
-      new:true
+      new: true,
     }
-  )
+  );
 
-  if (product.mainImage.url !== mainImage.url) {
-    removefromLocalPath(product.mainImage.localPath)
-  }
-  console.log(updatedProduct);
+  // if (product.mainImage.url !== mainImage.url) {
+  //   removefromLocalPath(product.mainImage.localPath);
+  // }
+  // console.log(updatedProduct);
 
   return res
     .status(200)
-    .json(new ApiResponse(200, updatedProduct, "Updating product Successfully"));
-})
+    .json(
+      new ApiResponse(200, updatedProduct, "Updating product Successfully")
+    );
+});
 
 const getProductById = asyncHandler(async (req, res) => {
   const { product_id } = req.params
@@ -136,6 +113,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200,product,"The product successfully deleted."))
 })
+
 export {
   createProduct,
   getAllProduct,
@@ -143,3 +121,32 @@ export {
   getProductById,
   deleteProduct,
 };
+
+
+/*
+ // console.log(req.files);
+
+  if (!req.files?.mainImage || !req.files?.mainImage.length) {
+    throw new ApiError(404, "Please provide main Images");
+  }
+  const mainImageUrl = getStaticFilePath(
+    req,
+    req.files.mainImage[0].filename
+  );
+  
+  const mainImageLocalPath = getLocalPath(req.files.mainImage[0].filename);
+  
+
+
+  ----update 
+  const mainImage = req.files?.mainImage[0]?.length
+    ? {
+      url: getStaticFilePath(req, req.files?.mainImage[0].filename),
+      localPath:getLocalPath(req.files?.mainImage[0]?.filename)
+    } : product.mainImage
+  
+  if (product.mainImage.url !== mainImage.url) {
+    removefromLocalPath(product.mainImage.localPath)
+  }
+  console.log(updatedProduct);
+*/
