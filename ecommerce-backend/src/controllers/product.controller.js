@@ -109,4 +109,37 @@ const updateProduct = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, updatedProduct, "Updating product Successfully"));
 })
 
-export { createProduct, getAllProduct, updateProduct };
+const getProductById = asyncHandler(async (req, res) => {
+  const { product_id } = req.params
+  
+  const product = await Products.findById(product_id)
+
+  if (!product) {
+    throw new ApiError(404,"Product does not exist")
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200,product,"Getting Product successfully by id"))
+})
+
+const deleteProduct = asyncHandler(async (req, res) => {
+  const { product_id } = req.params
+  
+  const product = await Products.findByIdAndDelete(product_id)
+
+  if (!product) {
+    throw new ApiError(404,"Product not found.")
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200,product,"The product successfully deleted."))
+})
+export {
+  createProduct,
+  getAllProduct,
+  updateProduct,
+  getProductById,
+  deleteProduct,
+};

@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { createProduct, getAllProduct, updateProduct } from '../controllers/product.controller.js'
+import {
+  createProduct,
+  getAllProduct,
+  updateProduct,
+  getProductById,
+  deleteProduct,
+} from "../controllers/product.controller.js";
 import { verifyJwt, verifyPermission } from "../middlewares/auth.middleware.js";
 import { UserRolesEnum } from "../constent.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -19,5 +25,11 @@ ProductRouter.route("/:product_id").put(
   upload.fields([{ name: "mainImage", maxCount: 1 }]),
   updateProduct
 );
+ProductRouter.route("/:product_id").get(getProductById);
+ProductRouter.route("/:product_id").delete(
+  verifyJwt,
+  verifyPermission([UserRolesEnum.ADMIN]),
+  deleteProduct
+)
 
 export default ProductRouter
