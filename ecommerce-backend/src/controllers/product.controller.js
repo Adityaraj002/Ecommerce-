@@ -33,7 +33,17 @@ const createProduct = asyncHandler(async (req, res) => {
 const getAllProduct = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10 } = req.query
   
-  const productAggregate = Products.aggregate([{ $match: {} }]);
+  const productAggregate = Products.aggregate([
+    { $match: {} },
+    {
+      $lookup: {
+        from: "productvariants",
+        localField: "_id",
+        foreignField: "products_id",
+        as: "variants",
+      },
+    },
+  ]);
   const product = await Products.aggregatePaginate(
     productAggregate,
     getMongoosePaginationOption({

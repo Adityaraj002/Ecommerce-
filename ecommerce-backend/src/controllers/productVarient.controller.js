@@ -1,7 +1,7 @@
 import {asyncHandler} from '../utils/asyncHandler.js'
 import {ApiError} from '../utils/ApiError.js'
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { ProductVarients } from '../models/productVariants.model.js';
+import { ProductVariants } from "../models/productVariants.model.js";
 import {
   getLocalPath,
   getStaticFilePath,
@@ -39,24 +39,27 @@ const createProductVariant = asyncHandler(async (req, res) => {
   }) : [];
 
   const owner = req.user._id;
-  const productVarient = await ProductVarients.create({
+  const productVarient = await ProductVariants.create({
     products_id,
     mainImage: {
       url: mainImageUrl,
-      localUrl: mainImageLocalPath
+      localUrl: mainImageLocalPath,
     },
     subMainImages,
     color,
     size,
     price,
     StockQuantity,
-    owner
+    owner,
   });
+
 
   return res
     .status(200)
     .json(new ApiResponse(200,productVarient,"Creation of ProductVarient successfull."))
 })
+
+
 
 
 export { createProductVariant };

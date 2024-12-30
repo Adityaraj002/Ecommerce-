@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import AggregatePaginate from "mongoose-aggregate-paginate-v2";
+
 const ProductVariantsSchema = new Schema(
   {
     products_id: {
@@ -49,7 +50,7 @@ const ProductVariantsSchema = new Schema(
 );
 
 ProductVariantsSchema.plugin(AggregatePaginate);
-export const ProductVarients = mongoose.model(
-  "ProductVarients",
+export const ProductVariants = mongoose.model(
+  "ProductVariants",
   ProductVariantsSchema
 );
