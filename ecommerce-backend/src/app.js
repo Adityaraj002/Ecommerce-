@@ -19,19 +19,19 @@ app.use(express.urlencoded({
 app.use(express.static("public"));
 app.use(cookieParese());
 
-//import 
-// import userRoleRouter from './routers/userRole.routes.js' //importing the router
+
 import userrouter from "./routers/user.routes.js";  //importing the router
 import ShoppingAddressRouter from "./routers/shoppingAddress.routes.js";  //importing the router
 import categoriesRouter from "./routers/categories.routes.js";  //importing the router
 import ProductRouter from "./routers/product.routes.js";
+import ProductVarient from "./routers/productVarient.routes.js";
 //router declaration
 // app.use('/api/v1/userRole', userRoleRouter);  //using the router
 app.use('/api/v1/user', userrouter)   //using the router
 app.use("/api/v1/shoppingAddress", ShoppingAddressRouter);  //using the router
 app.use("/api/v1/category", categoriesRouter);  //using the router
 app.use("/api/v1/products", ProductRouter);  //using the router
-
+app.use("/api/v1/productVarient",ProductVarient);
 
 export { app }
 

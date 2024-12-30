@@ -1,11 +1,11 @@
-import mongoose, { Schema } from 'mongoose'
-
+import mongoose, { Schema } from "mongoose";
+import AggregatePaginate from "mongoose-aggregate-paginate-v2";
 const ProductVariantsSchema = new Schema(
   {
     products_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Products",
-      requried: true,
+      required: true,
     },
     mainImage: {
       required: true,
@@ -15,17 +15,19 @@ const ProductVariantsSchema = new Schema(
       },
     },
     subMainImages: {
-      required: true,
-      type: {
-        url: String,
-        localPath: String,
-      },
+      type: [
+        {
+          url: String,
+          localPath: String,
+        },
+      ],
+      default: [],
     },
     color: {
       type: String,
     },
     size: {
-      type: Number,
+      type: String,
     },
     price: {
       type: Number,
@@ -46,4 +48,8 @@ const ProductVariantsSchema = new Schema(
   { timestamps: true }
 );
 
-export const ProductVarients = mongoose.model("ProductVarients",ProductVariantsSchema);
+ProductVariantsSchema.plugin(AggregatePaginate);
+export const ProductVarients = mongoose.model(
+  "ProductVarients",
+  ProductVariantsSchema
+);
