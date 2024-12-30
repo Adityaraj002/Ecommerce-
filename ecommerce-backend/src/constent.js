@@ -5,4 +5,5 @@ export const UserRolesEnum = {
   USER: "USER",
 };
 
+export const MAXIMUM_SUB_IMAGE_COUNT = 4;
 export const AvailableUserRoles = Object.values(UserRolesEnum);

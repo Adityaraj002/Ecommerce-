@@ -131,32 +131,3 @@ export {
   getProductById,
   deleteProduct,
 };
-
-
-/*
- // console.log(req.files);
-
-  if (!req.files?.mainImage || !req.files?.mainImage.length) {
-    throw new ApiError(404, "Please provide main Images");
-  }
-  const mainImageUrl = getStaticFilePath(
-    req,
-    req.files.mainImage[0].filename
-  );
-  
-  const mainImageLocalPath = getLocalPath(req.files.mainImage[0].filename);
-  
-
-
-  ----update 
-  const mainImage = req.files?.mainImage[0]?.length
-    ? {
-      url: getStaticFilePath(req, req.files?.mainImage[0].filename),
-      localPath:getLocalPath(req.files?.mainImage[0]?.filename)
-    } : product.mainImage
-  
-  if (product.mainImage.url !== mainImage.url) {
-    removefromLocalPath(product.mainImage.localPath)
-  }
-  console.log(updatedProduct);
-*/
