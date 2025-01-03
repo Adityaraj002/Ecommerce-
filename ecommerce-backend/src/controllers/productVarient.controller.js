@@ -74,7 +74,7 @@ const updateProductVariant = asyncHandler(async (req, res) => {
     throw new ApiError(400,"Productvarient does not exist.")
   }
   
-  const mainImage = req.files?.mainImage[0]?.length
+  const mainImage = req.files?.mainImage?.length
     ? {
         url: getStaticFilePath(req, req.files?.mainImage[0].filename),
         localPath: getLocalPath(req.files?.mainImage[0]?.filename),

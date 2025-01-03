@@ -7,6 +7,7 @@ import { generateAccessAndRefreshToken } from "../services/generateAccessAndRefr
 // import mongoose from "mongoose";
 import { ShoppingAddresses } from "../models/shoppingAddresses.model.js";
 import { UserRolesEnum } from "../constent.js";
+
 const register = asyncHandler(async (req, res) => {
   const { fullName, email, phoneNo, password,role } = req.body;
 
