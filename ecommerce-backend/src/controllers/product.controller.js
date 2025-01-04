@@ -43,6 +43,17 @@ const getAllProduct = asyncHandler(async (req, res) => {
         as: "variants",
       },
     },
+    {
+      $unwind: "$variants",
+    },
+    {
+      $lookup: {
+        from: "comments",
+        localField: "_id",
+        foreignField: "product_id",
+        as: "comments",
+      },
+    },
   ]);
   const product = await Products.aggregatePaginate(
     productAggregate,

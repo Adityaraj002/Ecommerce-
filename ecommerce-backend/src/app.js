@@ -25,6 +25,7 @@ import ShoppingAddressRouter from "./routers/shoppingAddress.routes.js";  //impo
 import categoriesRouter from "./routers/categories.routes.js";  //importing the router
 import ProductRouter from "./routers/product.routes.js";
 import ProductVarient from "./routers/productVarient.routes.js";
+import comment from "./routers/comments.routes.js";
 //router declaration
 // app.use('/api/v1/userRole', userRoleRouter);  //using the router
 app.use('/api/v1/user', userrouter)   //using the router
@@ -32,6 +33,6 @@ app.use("/api/v1/shoppingAddress", ShoppingAddressRouter);  //using the router
 app.use("/api/v1/category", categoriesRouter);  //using the router
 app.use("/api/v1/products", ProductRouter);  //using the router
 app.use("/api/v1/productVarient",ProductVarient);
-
+app.use("/api/v1/comment", comment);
 export { app }
 
