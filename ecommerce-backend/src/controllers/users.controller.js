@@ -15,19 +15,6 @@ const register = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required.");
   }
 
-  // const roleId = mongoose.Types.ObjectId.isValid(role)
-  //   ? new mongoose.Types.ObjectId(role)
-  //   : null;
-  // if (!roleId) {
-  //   throw new ApiError(400, "Invalid Role ID format.");
-  // }
-
-  // Check if the role exists
-  // const roleData = await Userrole.findById(roleId);
-  // if (!roleData) {
-  //   throw new ApiError(404, `Role '${role}' does not exist.`);
-  // }
-
   const existingUser = await User.findOne({ $or: [{ email }, { phoneNo }] });
   if (existingUser) {
     throw new ApiError(409, "User already exists. Please login.");

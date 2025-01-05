@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const WishlistSchema = new Schema(
   {
@@ -12,13 +13,13 @@ const WishlistSchema = new Schema(
       ref: "Products",
       required: true,
     },
-    productVariant_id: {
+    productVarient_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ProductVarients",
+      ref: "ProductVariants",
       required:true
     },
   },
   { timestamps: true }
 );
-
+WishlistSchema.plugin(mongooseAggregatePaginate)
 export const Wishlist = mongoose.model("Wishlist",WishlistSchema);

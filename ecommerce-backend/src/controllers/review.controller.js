@@ -8,10 +8,6 @@ const addReviews = asyncHandler(async (req, res) => {
   const { rating, review_text } = req.body;
   const { product_id } = req.params;
 
-  // console.log("rating : ", rating);
-  // console.log("product_id : ", product_id);
-  // console.log("review_text : ", review_text);
-
   if (!rating || !product_id || !review_text) {
     throw new ApiError(404, "Missing review please add.");
   }
