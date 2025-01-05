@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
-import { getLocalPath, getMongoosePaginationOption, getStaticFilePath, removefromLocalPath } from "../utils/helpers.js";
+import { getMongoosePaginationOption } from "../utils/helpers.js";
 import { Category } from "../models/categories.model.js";
 import { Products } from "../models/products.model.js";
 

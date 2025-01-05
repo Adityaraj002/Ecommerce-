@@ -26,6 +26,7 @@ import categoriesRouter from "./routers/categories.routes.js";  //importing the 
 import ProductRouter from "./routers/product.routes.js";
 import ProductVarient from "./routers/productVarient.routes.js";
 import comment from "./routers/comments.routes.js";
+import reviews from "./routers/reviews.routes.js";
 //router declaration
 // app.use('/api/v1/userRole', userRoleRouter);  //using the router
 app.use('/api/v1/user', userrouter)   //using the router
@@ -34,5 +35,6 @@ app.use("/api/v1/category", categoriesRouter);  //using the router
 app.use("/api/v1/products", ProductRouter);  //using the router
 app.use("/api/v1/productVarient",ProductVarient);
 app.use("/api/v1/comment", comment);
+app.use("/api/v1/reviews",reviews)
 export { app }
 
