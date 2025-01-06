@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const CartSchema = new Schema(
   {
@@ -18,10 +19,14 @@ const CartSchema = new Schema(
       required:true
     },
     quantity: {
-      type:Number
+      type: Number,
+      required: true,
+      min: [1, "Quantity must not be less than 1."],
+      default:1
     }
   },
   { timestamps: true }
 );
 
+CartSchema.plugin(mongooseAggregatePaginate)
 export const Carts = mongoose.model("Carts", CartSchema);

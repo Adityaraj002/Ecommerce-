@@ -28,6 +28,7 @@ import ProductVarient from "./routers/productVarient.routes.js";
 import comment from "./routers/comments.routes.js";
 import reviews from "./routers/reviews.routes.js";
 import wishlist from "./routers/wishlist.routes.js";
+import cart from "./routers/cart.routes.js";
 //router declaration
 // app.use('/api/v1/userRole', userRoleRouter);  //using the router
 app.use('/api/v1/user', userrouter)   //using the router
@@ -38,5 +39,6 @@ app.use("/api/v1/productVarient",ProductVarient);
 app.use("/api/v1/comment", comment);
 app.use("/api/v1/reviews",reviews)
 app.use("/api/v1/wishlist",wishlist)
+app.use("/api/v1/cart",cart)
 export { app }
 
