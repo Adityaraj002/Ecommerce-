@@ -1,7 +1,6 @@
 PORT=5000
 CORS_ORIGIN=*
-MONGODB_URL=mongodb+srv://Aditya2:VmFZyP8eIOhtHbdw@cluster0.ze3ng.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-#VmFZyP8eIOhtHbdw
+MONGODB_URL=
 ACCESS_TOKEN_SECRET='nsmns'
 ACCESS_TOKEN_EXPIRED=15min
 REFRESH_TOKEN_SECRET='nsdnksnk'
