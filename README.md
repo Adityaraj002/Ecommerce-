@@ -23,7 +23,7 @@ Welcome to the **E-Commerce Backend API**, an open-source backend solution for e
 ## 🚀 Getting Started
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-username/ecommerce-backend.git
+git clone https://github.com/Adityaraj002/Ecommerce-.git
 cd ecommerce-backend
 ```
 
@@ -51,13 +51,64 @@ npm run dev
 npm start
 ```
 
-### 5️⃣ API Documentation
-The API uses **Postman** for testing and Swagger documentation (if implemented). Endpoints include:
-- `POST /api/v1/auth/register` - User Registration
-- `POST /api/v1/auth/login` - User Login
+### 5️⃣ API Routes
+The following API routes are available:
+
+#### User Management
+- `POST /api/v1/user/register` - User Registration
+- `POST /api/v1/user/login` - User Login
+- `POST /api/v1/user/logout` - User Logout
+- `POST /api/v1/user/updateProfile` - Update Profile
+- `POST /api/v1/user/updatePassword` - Update Password
+- `POST /api/v1/user/getUserProfile` - Get User Profile
+- `DELETE /api/v1/user/deleteUser` - Delete User
+
+#### Address Management
+- `POST /api/v1/shoppingAddress/addAddress` - Add Shopping Address
+- `POST /api/v1/shoppingAddress/getAddress` - Retrieve Shopping Address
+- `PATCH /api/v1/shoppingAddress/updateAddress` - Update Address
+- `PATCH /api/v1/shoppingAddress/setDefaultAddress` - Set Default Address
+- `DELETE /api/v1/shoppingAddress/deleteOneAddress/:addressId` - Delete One Address
+- `DELETE /api/v1/shoppingAddress/deleteAllAddress` - Delete All Addresses
+
+#### Categories
+- `GET /api/v1/category` - Get All Categories
+- `POST /api/v1/category` - Add Category
+- `GET /api/v1/category/:category_id` - Get Category By ID
+- `PUT /api/v1/category/:category_id` - Update Category
+- `DELETE /api/v1/category/:category_id` - Delete Category
+
+#### Products
 - `GET /api/v1/products` - Get All Products
-- `POST /api/v1/cart` - Add to Cart
-- `POST /api/v1/orders` - Place Order
+- `POST /api/v1/products` - Add a Product
+- `GET /api/v1/products/:product_id` - Get Product By ID
+- `PUT /api/v1/products/:product_id` - Update Product
+- `DELETE /api/v1/products/:product_id` - Delete Product
+
+#### Product Variants
+- `POST /api/v1/productVarient/:products_id` - Create Product Variant
+- `PUT /api/v1/productVarient/:products_id` - Update Product Variant
+
+#### Reviews & Comments
+- `POST /api/v1/comment/:product_id` - Add a Comment
+- `GET /api/v1/comment/:product_id` - Get Comments
+- `PUT /api/v1/comment/:comment_id` - Update Comment
+- `DELETE /api/v1/comment/:comment_id` - Delete Comment
+- `POST /api/v1/reviews/:product_id` - Add a Review
+- `GET /api/v1/reviews/:product_id` - Get Reviews
+- `PATCH /api/v1/reviews/:review_id` - Moderate Reviews
+- `DELETE /api/v1/reviews/:review_id` - Delete Review
+
+#### Wishlist
+- `GET /api/v1/wishlist` - Get Wishlist Items
+- `POST /api/v1/wishlist` - Add to Wishlist
+- `DELETE /api/v1/wishlist` - Clear Wishlist
+- `DELETE /api/v1/wishlist/:product_id` - Remove from Wishlist
+
+#### Cart
+- `GET /api/v1/cart` - Get Cart Items
+- `PUT /api/v1/cart` - Add to Cart
+- `DELETE /api/v1/cart` - Remove from Cart
 
 ## 🛠 Contributing
 We welcome contributions from the community! To contribute:
